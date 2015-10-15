@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
+	"strings"
 )
 
 // --------------------------------------------------------------------------
@@ -45,7 +46,9 @@ func toString(in interface{}) (string, error) {
 
 	switch inValue.Kind() {
 	case reflect.String:
-		return inValue.String(), nil
+		r := strings.NewReplacer("\n", "\\n")
+		s := r.Replace(inValue.String())
+		return s, nil
 	case reflect.Bool:
 		b := inValue.Bool()
 		if b {
