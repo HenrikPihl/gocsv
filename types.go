@@ -204,7 +204,10 @@ func setField(field reflect.Value, value string) error {
 func getFieldAsString(field reflect.Value) (str string, err error) {
 	switch field.Kind() {
 	case reflect.String:
-		return field.String(), nil
+		str, err = toString(field.String())
+		if err != nil {
+			return str, err
+		}
 	case reflect.Bool:
 		str, err = toString(field.Bool())
 		if err != nil {
